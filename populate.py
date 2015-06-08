@@ -7,7 +7,7 @@ from django.contrib.gis.geos import Point, fromstr
 
 from restraunts.models import Restraunt
 
-
+                #(          name,    latitude,  longitude )
 location_data = [('Himani Hotel', '30.904486', '77.096733'),
                  ('Deokali', '25.830952', '82.676369'),
                  ('Maya Heritage', '9.618521', '76.438469'),
@@ -18,8 +18,11 @@ location_data = [('Himani Hotel', '30.904486', '77.096733'),
 
 def populate():
     for location in location_data:
-        point = fromstr("POINT(%s %s)" % (float(location[2]), float(location[1])))
-        restraunt_obj = Restraunt(name = location[0], coordinates = point)
+        name = location[0]
+        latitude = float(location[1])
+        longitude = float(location[2])
+        point = fromstr("POINT(%s %s)" % (longitude, latitude))
+        restraunt_obj = Restraunt(name = name, coordinates = point)
         restraunt_obj.save()
         print restraunt_obj,point.tuple
 
